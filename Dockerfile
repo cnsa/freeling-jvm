@@ -53,3 +53,5 @@ RUN rm -rf /tmp/freeling-api && \
     apt-get remove -y $BUILD_DEV && \
     apt-get clean -y && \
     apt-get purge
+
+WORKDIR /freeling
