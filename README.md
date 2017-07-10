@@ -1,10 +1,10 @@
 # Freeling with JVM Dockerfile (Debian Jessie)
 
-    $ VERSION=latest FOLDER=4.0.8.131 make build
+    $ VERSION=latest FOLDER=4.0.8u131 make build
     $ VERSION=latest make push
     
     # Build and push together
-    $ VERSION=latest FOLDER=4.0.8.131 make all
+    $ VERSION=latest FOLDER=4.0.8u131 make all
 
 This Dockerfile enables you to use [Freeling](http://nlp.cs.upc.edu/freeling/) project. 
 
