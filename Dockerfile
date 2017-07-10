@@ -54,4 +54,6 @@ RUN rm -rf /tmp/freeling-api && \
     apt-get clean -y && \
     apt-get purge
 
+RUN mv /freeling/libfreeling_javaAPI.so /usr/lib/
+
 WORKDIR /freeling
