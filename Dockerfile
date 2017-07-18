@@ -47,6 +47,19 @@ RUN git clone -q https://github.com/cnsa/freeling-api.git && \
 
 # Cleanup JNI
 
+# Install mystem
+WORKDIR /tmp
+
+ENV MYSTEM_FILE "mystem-3.0-linux3.1-64bit.tar.gz"
+ENV MYSTEM_BIN "$FREELINGOUT/mystem"
+ENV MYSTEM_URL "http://download.cdn.yandex.net/mystem/$MYSTEM_FILE"
+
+RUN  wget -q --progress=dot:giga $MYSTEM_URL && \
+    tar -zxf "/tmp/$MYSTEM_FILE" && \
+    mv "/tmp/mystem" $MYSTEM_BIN && \
+    chmod +x $MYSTEM_BIN && \
+    rm -rf "/tmp/$MYSTEM_FILE"
+
 RUN rm -rf /tmp/freeling-api && \
     rm -f /tmp/$FREELING_SRC && \
     apt-get autoremove -y && \
