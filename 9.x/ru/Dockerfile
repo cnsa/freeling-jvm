@@ -1,4 +1,4 @@
-FROM openjdk:8u131-jdk
+FROM openjdk:9-b181-jdk
 MAINTAINER Alexander Merkulov <sasha@merqlove.ru>
 
 ENV DEBIAN_FRONTEND noninteractive
@@ -22,20 +22,36 @@ ENV BUILD_DEV libicu-dev libboost-regex-dev libboost-system-dev \
 
 # Freeling Deps
 RUN apt-get install -qqy automake autoconf libtool make g++ wget swig \
-                       libicu52 libboost-regex1.55.0 \
-                       libboost-system1.55.0 libboost-program-options1.55.0 \
-                       libboost-thread1.55.0 libboost-filesystem1.55.0 && \
+                       libicu57 libboost-regex1.62.0 \
+                       libboost-system1.62.0 libboost-program-options1.62.0 \
+                       libboost-thread1.62.0 libboost-filesystem1.62.0 && \
     apt-get install -qqy $BUILD_DEV
 
 # Install Freeling
-ENV FREELING_SRC freeling-4.0-jessie-amd64.deb
+ENV FREELING_SRC freeling_4.0_amd64_stretch.deb
 WORKDIR /tmp
-RUN wget -q --progress=dot:giga https://github.com/TALP-UPC/FreeLing/releases/download/4.0/$FREELING_SRC && \
-    dpkg -i $FREELING_SRC
+RUN wget -q --progress=dot:giga https://github.com/cnsa/deb-freeling/releases/download/4.0/$FREELING_SRC
+RUN dpkg -i $FREELING_SRC
+
+ENV FREELING_SHARE /usr/share/freeling
+
+RUN rm -rf $FREELING_SHARE/as && \
+    rm -rf $FREELING_SHARE/ca && \
+    rm -rf $FREELING_SHARE/cs && \
+    rm -rf $FREELING_SHARE/cy && \
+    rm -rf $FREELING_SHARE/de && \
+    rm -rf $FREELING_SHARE/es && \
+    rm -rf $FREELING_SHARE/fr && \
+    rm -rf $FREELING_SHARE/gl && \
+    rm -rf $FREELING_SHARE/hr && \
+    rm -rf $FREELING_SHARE/nb && \
+    rm -rf $FREELING_SHARE/pt && \
+    rm -rf $FREELING_SHARE/en && \
+    rm -rf $FREELING_SHARE/sl
 
 # Build JNI
 ENV JAVADIR /docker-java-home
-ENV SWIGDIR /usr/share/swig2.0
+ENV SWIGDIR /usr/share/swig3.0
 ENV FREELINGDIR /usr
 ENV FREELINGOUT /freeling
 
